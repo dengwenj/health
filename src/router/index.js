@@ -1,28 +1,58 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
+
+// 路由懒加载
+const Login = () =>
+  import ('views/login/Login')
+const LayOut = () =>
+  import ('views/layout/LayOut')
+const Home = () =>
+  import ('views/home/Home')
+const My = () =>
+  import ('views/my/My')
+const Publish = () =>
+  import ('views/publish/Publish')
+const Admin = () =>
+  import ('views/admin/Admin')
+const Detect = () =>
+  import ('views/detect/Detect')
 
 Vue.use(VueRouter)
 
-const routes = [
-  {
+const routes = [{
+  path: '/login',
+  name: 'login',
+  component: Login,
+}, {
+  path: '/',
+  component: LayOut,
+  // 子路由
+  children: [{
     path: '/',
-    name: 'Home',
-    component: Home
-  },
-  {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-  }
-]
+    name: 'home',
+    component: Home,
+  }, {
+    path: '/detect',
+    name: 'detect',
+    component: Detect,
+  }, {
+    path: '/publish',
+    name: 'publish',
+    component: Publish,
+  }, {
+    path: '/admin',
+    name: 'admin',
+    component: Admin,
+  }, {
+    path: '/my',
+    name: 'my',
+    component: My,
+  }]
+}]
 
 const router = new VueRouter({
   mode: 'history',
-  base: process.env.BASE_URL,
+  // base: process.env.BASE_URL,
   routes
 })
 
