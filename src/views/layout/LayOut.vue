@@ -20,6 +20,7 @@
 <script>
 import AppAside from './compschild/Aside'
 import AppHeader from './compschild/Header'
+
 export default {
   name: '',
   components: {

@@ -8,7 +8,7 @@
       router
     >
       <el-menu-item index="/">
-        <i class="el-icon-menu"></i>
+        <i class="el-icon-s-home"></i>
         <span slot="title">首页</span>
       </el-menu-item>
       <el-menu-item index="/detect">
@@ -20,7 +20,7 @@
         <span slot="title">内容管理</span>
       </el-menu-item>
       <el-menu-item index="/admin">
-        <i class="el-icon-setting"></i>
+        <i class="el-icon-s-custom"></i>
         <span slot="title">管理员</span>
       </el-menu-item>
       <el-menu-item index="/my">
@@ -43,14 +43,7 @@ export default {
   watch: {},
   created() {},
   mounted() {},
-  methods: {
-    handleOpen(key, keyPath) {
-      console.log(key, keyPath)
-    },
-    handleClose(key, keyPath) {
-      console.log(key, keyPath)
-    },
-  },
+  methods: {},
 }
 </script>
 
