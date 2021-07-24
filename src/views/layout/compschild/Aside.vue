@@ -7,6 +7,7 @@
       active-text-color="#ffd04b"
       router
     >
+      <slot></slot>
       <el-menu-item index="/">
         <i class="el-icon-s-home"></i>
         <span slot="title">首页</span>

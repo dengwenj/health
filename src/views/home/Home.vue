@@ -1,5 +1,5 @@
 <template>
-  <div class="">首页</div>
+  <div class="home"></div>
 </template>
 
 <script>
@@ -18,4 +18,11 @@ export default {
 }
 </script>
 
-<style scoped lang="less"></style>
+<style scoped lang="less">
+.home {
+  width: 100%;
+  height: 100%;
+  background: url('../../assets/jiankang.png') no-repeat;
+  background-size: cover;
+}
+</style>

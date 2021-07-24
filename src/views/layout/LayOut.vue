@@ -2,7 +2,9 @@
   <el-container class="layout-container">
     <el-aside class="aside" width="auto">
       <!-- 侧边栏组件 -->
-      <app-aside class="aside-menu"></app-aside>
+      <app-aside class="aside-menu">
+        <div class="health">Health</div>
+      </app-aside>
     </el-aside>
     <el-container>
       <el-header class="header">
@@ -52,11 +54,11 @@ export default {
   // background-color: #d3dce6;
   .aside-menu {
     height: 100%;
-    .toutiao {
-      margin-top: 15px;
+    .health {
+      margin: 15px 0;
       text-align: center;
-      color: #89abcf;
-      font-size: 18px;
+      color: #409eff;
+      font-size: 22px;
     }
   }
 }

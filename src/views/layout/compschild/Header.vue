@@ -1,5 +1,31 @@
 <template>
-  <div class="nav-header">大大大大打的多多</div>
+  <div class="nav-header">
+    <div class="left">
+      你有一万种功能，你可以征服世界，甚至改变人种，你没有健康，只能是空谈。
+    </div>
+    <div class="right">
+      <!-- 头像 -->
+      <div class="avatar">
+        <el-avatar
+          src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
+        ></el-avatar>
+      </div>
+      <!-- /头像 -->
+      <!-- 姓名 -->
+      <div class="name">
+        <el-dropdown @command="handleCommand">
+          <span class="el-dropdown-link">
+            小邓<i class="el-icon-arrow-down el-icon--right"></i>
+          </span>
+          <el-dropdown-menu slot="dropdown">
+            <el-dropdown-item command="settings">个人设置</el-dropdown-item>
+            <el-dropdown-item command="quitLogin">退出登录</el-dropdown-item>
+          </el-dropdown-menu>
+        </el-dropdown>
+      </div>
+      <!-- /姓名 -->
+    </div>
+  </div>
 </template>
 
 <script>
@@ -8,13 +34,49 @@ export default {
   components: {},
   props: {},
   data() {
-    return {}
+    return {
+      dialogVisible: true,
+    }
   },
   computed: {},
   watch: {},
   created() {},
   mounted() {},
-  methods: {},
+  methods: {
+    // 点击退出登录或个人设置
+    handleCommand(command) {
+      if (command === 'settings') {
+        if (this.$route.path !== '/my') {
+          this.$router.push('/my')
+        }
+        return
+      }
+
+      //走到这里来的话就是点击了退出登录
+      this.quitLogin()
+    },
+
+    // 是否退出登录
+    async quitLogin() {
+      try {
+        await this.$confirm('是否退出登录?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning',
+        })
+        this.$router.push('/login')
+        this.$message({
+          type: 'success',
+          message: '退出成功',
+        })
+      } catch (error) {
+        this.$message({
+          type: 'info',
+          message: '已取消退出',
+        })
+      }
+    },
+  },
 }
 </script>
 
@@ -25,5 +87,25 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  .left {
+    color: #409eff;
+  }
+  .right {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    margin-right: 15px;
+    .avatar {
+      margin-right: 10px;
+    }
+    .name {
+      line-height: 36px;
+      cursor: pointer;
+    }
+  }
+  .dialog {
+    position: fixed;
+    z-index: 9999;
+  }
 }
 </style>
