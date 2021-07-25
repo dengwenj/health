@@ -2,14 +2,14 @@
   <el-container class="layout-container">
     <el-aside class="aside" width="auto">
       <!-- 侧边栏组件 -->
-      <app-aside class="aside-menu">
-        <div class="health">Health</div>
+      <app-aside class="aside-menu" :istubiao="istubiao">
+        <div class="health" v-if="!istubiao">Health</div>
       </app-aside>
     </el-aside>
     <el-container>
       <el-header class="header">
         <!-- 头部组件 -->
-        <app-header></app-header>
+        <app-header @handleIcon="handleIcon"></app-header>
       </el-header>
       <el-main class="main">
         <!-- 子路由出口 -->
@@ -31,13 +31,20 @@ export default {
   },
   props: {},
   data() {
-    return {}
+    return {
+      istubiao: false,
+    }
   },
   computed: {},
   watch: {},
   created() {},
   mounted() {},
-  methods: {},
+  methods: {
+    // 接过来的
+    handleIcon(istubiao) {
+      this.istubiao = istubiao
+    },
+  },
 }
 </script>
 
@@ -51,6 +58,7 @@ export default {
   bottom: 0;
 }
 .aside {
+  width: 200px;
   // background-color: #d3dce6;
   .aside-menu {
     height: 100%;

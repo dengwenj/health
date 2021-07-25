@@ -1,11 +1,12 @@
 <template>
-  <div class="content">
+  <div :class="istubiao ? 'baifenbai' : 'content'">
     <el-menu
       :default-active="$route.path"
       background-color="#002033"
       text-color="#fff"
       active-text-color="#ffd04b"
       router
+      :collapse="istubiao"
     >
       <slot></slot>
       <el-menu-item index="/">
@@ -36,7 +37,12 @@
 export default {
   name: '',
   components: {},
-  props: {},
+  props: {
+    istubiao: {
+      type: Boolean,
+      default: false,
+    },
+  },
   data() {
     return {}
   },
@@ -49,6 +55,9 @@ export default {
 </script>
 
 <style scoped lang="less">
+.baifenbai {
+  width: 100%;
+}
 .content {
   width: 200px;
   .tac {

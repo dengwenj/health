@@ -1,11 +1,25 @@
 <template>
-  <div class="">内容</div>
+  <div class="publish">
+    <el-card class="box-card">
+      <div slot="header" class="clearfix">
+        <el-breadcrumb separator="/">
+          <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+          <el-breadcrumb-item>内容管理</el-breadcrumb-item>
+        </el-breadcrumb>
+      </div>
+      <publish-content></publish-content>
+    </el-card>
+  </div>
 </template>
 
 <script>
+import PublishContent from './compchild/PublishContent'
+
 export default {
   name: '',
-  components: {},
+  components: {
+    PublishContent,
+  },
   props: {},
   data() {
     return {}

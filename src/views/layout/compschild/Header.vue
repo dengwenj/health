@@ -1,5 +1,8 @@
 <template>
   <div class="nav-header">
+    <div @click="handleIconClick">
+      <i :class="isIcon ? 'el-icon-s-unfold' : 'el-icon-s-fold'" class="l"></i>
+    </div>
     <div class="left">
       你有一万种功能，你可以征服世界，甚至改变人种，你没有健康，只能是空谈。
     </div>
@@ -30,12 +33,13 @@
 
 <script>
 export default {
-  name: '',
+  name: 'Header',
   components: {},
   props: {},
   data() {
     return {
       dialogVisible: true,
+      isIcon: false,
     }
   },
   computed: {},
@@ -76,6 +80,13 @@ export default {
         })
       }
     },
+
+    // 点击图标
+    handleIconClick() {
+      this.isIcon = !this.isIcon
+      // 传给父组件
+      this.$emit('handleIcon', this.isIcon)
+    },
   },
 }
 </script>
@@ -87,6 +98,10 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  .l {
+    font-size: 22px;
+    cursor: pointer;
+  }
   .left {
     color: #409eff;
   }
