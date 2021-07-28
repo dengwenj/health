@@ -16,7 +16,12 @@
   <div class="login">
     <div class="content">
       <h1 class="health">Health</h1>
-      <el-form ref="login_form" :rules="rules" :model="form" label-width="90px">
+      <el-form
+        ref="adminLogin_form"
+        :rules="rules"
+        :model="form"
+        label-width="90px"
+      >
         <el-form-item label="用户名" prop="username">
           <el-input v-model="form.username"></el-input>
         </el-form-item>
@@ -32,36 +37,32 @@
           </el-checkbox-group>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="onSubmit" :loading="loginLonding">
+          <el-button type="primary" @click="onSubmit" :loading="adminLonding">
             {{ text }}
           </el-button>
         </el-form-item>
       </el-form>
-      <div class="admin" @click="handleAdmin">管理员登录</div>
-      <div class="zhuce" @click="handleRegister">用户注册</div>
     </div>
   </div>
 </template>
 
 <script>
 // 网络请求
-import { userLogin } from 'api/user'
-// vuex
-import { mapMutations } from 'vuex'
+import { adminLogin } from 'api/user'
 
 export default {
-  name: 'Login',
+  name: 'Register',
   components: {},
   props: {},
   data() {
     return {
       form: {
-        username: 'xiaodeng',
+        username: 'halo',
         password: '12345678',
         type: [],
       },
-      loginLonding: false, // 登录 loading
-      text: '登录',
+      adminLonding: false, // 登录 loading
+      text: '管理员登录',
       rules: {
         username: [
           { required: true, message: '请输入用户名', trigger: 'blur' },
@@ -90,64 +91,46 @@ export default {
   created() {},
   mounted() {},
   methods: {
+    // 点击立即注册
     onSubmit() {
-      this.$refs['login_form'].validate((v) => {
+      this.$refs['adminLogin_form'].validate((v) => {
         // v 为 false 表示不通过要求  为 true 表示通过 要求
         if (v) {
-          // 发送请求 登录进去
-          this._userLogin()
-          return
+          this.adminLonding = true
+          this.text = '登录中'
+          // 发送请求
+          this._adminLogin()
         }
       })
     },
 
-    // 网络请求 用户登录
-    async _userLogin() {
-      this.loginLonding = true
-      this.text = '登录中'
-      const res = await userLogin({
+    // 管理员登录
+    async _adminLogin() {
+      const res = await adminLogin({
         username: this.form.username,
         password: this.form.password,
       })
+
       console.log(res)
 
-      // 用户没有注册就登陆了
-      if (res.data.data === null) {
-        this.$message('用户没有注册或用户名或密码错误')
-
-        this.loginLonding = false
-        this.text = '登录'
-
+      // 不是管理员 提示用户
+      if (res.data.msg === '无管理员权限') {
+        this.$message({
+          message: '非管理员账号',
+          type: 'warning',
+        })
+        this.adminLonding = false
+        this.text = '管理员登录'
         return
       }
-      // 把 用户数据 保存到 vuex 里面
+
+      // 存储管理员账号的信息
       this.$store.commit('setUser', res.data.data)
+      // 是管理员 登录成功 跳转到首页
+      this.$router.push('/admin')
 
-      // 这里要放在 存入数据后在跳转 不然报错
-      // 判断这里有没有昵称有昵称跳转到首页，没昵称跳转到个人设置
-      if (res.data.data.nickname) {
-        this.$router.push({ name: 'home' })
-      } else {
-        this.$router.push('/my')
-      }
-
-      this.loginLonding = false
-      this.text = '登录'
-
-      this.$message({
-        message: '登录成功',
-        type: 'success',
-      })
-    },
-
-    // 用户注册
-    handleRegister() {
-      this.$router.push('/register')
-    },
-
-    // 管理员登录
-    handleAdmin() {
-      this.$router.push('/adminlogin')
+      this.adminLonding = false
+      this.text = '管理员登录'
     },
   },
 }
@@ -160,7 +143,7 @@ export default {
   top: 0;
   left: 0;
   right: 0;
-  background: url('../../assets/jiankang.png') no-repeat;
+  background: url('./adminlogin.jpg') no-repeat;
   background-size: cover;
   z-index: -1;
   .content {
@@ -172,6 +155,7 @@ export default {
     height: 350px;
     background-color: #fff;
     border-radius: 10px;
+
     h1 {
       margin-top: 10px;
       margin-bottom: 20px;
@@ -195,14 +179,6 @@ export default {
   position: absolute;
   top: 91%;
   left: 85%;
-  font-size: 12px;
-  color: #57a3f5;
-  cursor: pointer;
-}
-.admin {
-  position: absolute;
-  top: 91%;
-  left: 4%;
   font-size: 12px;
   color: #57a3f5;
   cursor: pointer;

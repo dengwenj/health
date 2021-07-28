@@ -32,3 +32,32 @@ export const userRegister = (data) => {
     },
   })
 }
+
+// 管理员登录
+export const adminLogin = (data) => {
+  return request({
+    method: 'POST',
+    url: '/adminLogin',
+    data: qs.stringify(data),
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded;charset-utf-8',
+    },
+  })
+}
+
+// 查看个人信息
+export const getUserSettings = () => {
+  return request({
+    method: 'GET',
+    url: '/user/getInfo',
+  })
+}
+
+// 更新个人信息
+export const updateUserSettings = (data) => {
+  return request({
+    method: 'POST',
+    url: '/user/update',
+    data,
+  })
+}

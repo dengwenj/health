@@ -12,6 +12,8 @@ const Admin = () => import('views/admin/Admin')
 const Detect = () => import('views/detect/Detect')
 // 注册页面
 const Register = () => import('views/register/Register')
+// 管理员登录页面
+const AdminLogin = () => import('views/adminlogin/AdminLogin')
 
 Vue.use(VueRouter)
 
@@ -28,6 +30,14 @@ const routes = [
     path: '/register',
     name: 'register',
     component: Register,
+    meta: {
+      Login: false,
+    },
+  },
+  {
+    path: '/adminlogin',
+    name: 'adminlogin',
+    component: AdminLogin,
     meta: {
       Login: false,
     },
@@ -86,13 +96,6 @@ const router = new VueRouter({
   // base: process.env.BASE_URL,
   routes,
 })
-
-// const originalPush = VueRouter.prototype.push
-// VueRouter.prototype.push = function push(location, onResolve, onReject) {
-//   if (onResolve || onReject)
-//     return originalPush.call(this, location, onResolve, onReject)
-//   return originalPush.call(this, location).catch((err) => err)
-// }
 
 // 路由拦击器
 // to: Route: 即将要进入的目标 路由对象

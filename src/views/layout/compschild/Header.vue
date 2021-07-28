@@ -18,7 +18,8 @@
       <div class="name">
         <el-dropdown @command="handleCommand">
           <span class="el-dropdown-link">
-            {{ user.username }}<i class="el-icon-arrow-down el-icon--right"></i>
+            {{ user.username === 'halo' ? '管理员' : user.nickname }}
+            <i class="el-icon-arrow-down el-icon--right"></i>
           </span>
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item command="settings">个人设置</el-dropdown-item>

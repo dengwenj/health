@@ -117,7 +117,7 @@ export default {
         username: this.form.username,
         password: this.form.password,
       })
-      console.log(res)
+      // console.log(res)
       // 因为res返回的data是null不行 不能直接进入 必须要登录了才可以进去
       // 所有这里注册好了跳转回登录页
       this.registerLonding = false
