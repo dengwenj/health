@@ -16,7 +16,12 @@
   <div class="login">
     <div class="content">
       <h1 class="health">Health</h1>
-      <el-form ref="login_form" :rules="rules" :model="form" label-width="90px">
+      <el-form
+        ref="register_form"
+        :rules="rules"
+        :model="form"
+        label-width="90px"
+      >
         <el-form-item label="用户名" prop="username">
           <el-input v-model="form.username"></el-input>
         </el-form-item>
@@ -32,35 +37,37 @@
           </el-checkbox-group>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="onSubmit" :loading="loginLonding">
+          <el-button
+            type="primary"
+            @click="onSubmit"
+            :loading="registerLonding"
+          >
             {{ text }}
           </el-button>
         </el-form-item>
       </el-form>
-      <div class="zhuce" @click="handleRegister">用户注册</div>
     </div>
   </div>
 </template>
 
 <script>
 // 网络请求
-import { userLogin } from 'api/user'
-// vuex
-import { mapMutations } from 'vuex'
+import { userRegister } from 'api/user'
+// import { setItem, getItem } from 'utils/storage'
 
 export default {
-  name: 'Login',
+  name: 'Register',
   components: {},
   props: {},
   data() {
     return {
       form: {
-        username: 'halo1',
-        password: '12345678',
+        username: '',
+        password: '',
         type: [],
       },
-      loginLonding: false, // 登录 loading
-      text: '登录',
+      registerLonding: false, // 登录 loading
+      text: '立即注册',
       rules: {
         username: [
           { required: true, message: '请输入用户名', trigger: 'blur' },
@@ -89,53 +96,38 @@ export default {
   created() {},
   mounted() {},
   methods: {
+    // 点击立即注册
     onSubmit() {
-      this.$refs['login_form'].validate((v) => {
+      this.$refs['register_form'].validate((v) => {
+        console.log(v)
         // v 为 false 表示不通过要求  为 true 表示通过 要求
         if (v) {
-          // 发送请求 登录进去
-          this._userLogin()
-          return
+          // loading
+          this.registerLonding = true
+          this.text = '注册中'
+
+          // 发送请求
+          this._userRegister()
         }
       })
     },
 
-    // 网络请求 用户登录
-    async _userLogin() {
-      this.loginLonding = true
-      this.text = '登录中'
-      const res = await userLogin({
+    // 发送请求 用户注册
+    async _userRegister() {
+      await userRegister({
         username: this.form.username,
         password: this.form.password,
       })
-
-      // 用户没有注册就登陆了
-      if (res.data.data === null) {
-        this.$message('用户没有注册或用户名或密码错误')
-
-        this.loginLonding = false
-        this.text = '登录'
-
-        return
-      }
-      // 把 用户数据 保存到 vuex 里面
-      this.$store.commit('setUser', res.data.data)
-
-      // 这里要放在 存入数据后在跳转 不然报错
-      this.$router.push({ name: 'home' })
-
-      this.loginLonding = false
-      this.text = '登录'
+      // 因为res返回的data是null不行 不能直接进入 必须要登录了才可以进去
+      // 所有这里注册好了跳转回登录页
+      this.registerLonding = false
+      this.text = '立即注册'
 
       this.$message({
-        message: '登录成功',
+        message: '注册成功，可以登录啦',
         type: 'success',
       })
-    },
-
-    // 注册
-    handleRegister() {
-      this.$router.push('/register')
+      this.$router.push('/login')
     },
   },
 }
@@ -148,7 +140,7 @@ export default {
   top: 0;
   left: 0;
   right: 0;
-  background: url('../../assets/jiankang.png') no-repeat;
+  background: url('./lijizhuce.jpg') no-repeat;
   background-size: cover;
   z-index: -1;
   .content {
@@ -160,6 +152,7 @@ export default {
     height: 350px;
     background-color: #fff;
     border-radius: 10px;
+
     h1 {
       margin-top: 10px;
       margin-bottom: 20px;

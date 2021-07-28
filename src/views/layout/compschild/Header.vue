@@ -18,7 +18,7 @@
       <div class="name">
         <el-dropdown @command="handleCommand">
           <span class="el-dropdown-link">
-            小邓<i class="el-icon-arrow-down el-icon--right"></i>
+            {{ user.username }}<i class="el-icon-arrow-down el-icon--right"></i>
           </span>
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item command="settings">个人设置</el-dropdown-item>
@@ -32,6 +32,11 @@
 </template>
 
 <script>
+// vuex
+import { mapState } from 'vuex'
+import { quitLogin } from 'api/user'
+import { removeItem } from 'utils/storage'
+
 export default {
   name: 'Header',
   components: {},
@@ -42,7 +47,9 @@ export default {
       isIcon: false,
     }
   },
-  computed: {},
+  computed: {
+    ...mapState(['user']),
+  },
   watch: {},
   created() {},
   mounted() {},
@@ -57,18 +64,24 @@ export default {
       }
 
       //走到这里来的话就是点击了退出登录
-      this.quitLogin()
+      this._quitLogin()
     },
 
     // 是否退出登录
-    async quitLogin() {
+    async _quitLogin() {
       try {
         await this.$confirm('是否退出登录?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning',
         })
-        this.$router.push('/login')
+
+        // 退出登录
+        await quitLogin()
+        // 退出了就删除本地存储的数据
+        removeItem('user')
+        this.$router.replace('/login')
+
         this.$message({
           type: 'success',
           message: '退出成功',
