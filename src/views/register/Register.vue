@@ -99,7 +99,6 @@ export default {
     // 点击立即注册
     onSubmit() {
       this.$refs['register_form'].validate((v) => {
-        console.log(v)
         // v 为 false 表示不通过要求  为 true 表示通过 要求
         if (v) {
           // loading
@@ -114,15 +113,26 @@ export default {
 
     // 发送请求 用户注册
     async _userRegister() {
-      await userRegister({
+      const res = await userRegister({
         username: this.form.username,
         password: this.form.password,
       })
+      console.log(res)
       // 因为res返回的data是null不行 不能直接进入 必须要登录了才可以进去
       // 所有这里注册好了跳转回登录页
       this.registerLonding = false
       this.text = '立即注册'
 
+      // 用户名存在 提示用户
+      if (res.data.msg === '用户名已存在') {
+        this.$message({
+          message: '用户名已存在',
+          type: 'warning',
+        })
+        return
+      }
+
+      // 这里是用户名不存在 注册成功了跳转到登录页
       this.$message({
         message: '注册成功，可以登录啦',
         type: 'success',
