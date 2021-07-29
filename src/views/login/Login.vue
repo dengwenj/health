@@ -109,7 +109,7 @@ export default {
         username: this.form.username,
         password: this.form.password,
       })
-      console.log(res)
+      // console.log(res)
 
       // 用户没有注册就登陆了
       if (res.data.data === null) {

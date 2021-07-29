@@ -101,6 +101,8 @@ export default {
           // 发送请求
           this._adminLogin()
         }
+
+        this.adminLonding = false
       })
     },
 
