@@ -1,10 +1,10 @@
 <template>
-  <div class="lsit">
+  <div class="list" v-if="pagination">
     <el-card class="box-card">
       <div slot="header" class="clearfix">
         <span style="color:#409eff">
-          共{{ pagination.total }}条全部健康分析
-        </span>
+          全部健康分析共{{ pagination.total }}条</span
+        >
       </div>
       <el-table
         class="table"
@@ -13,6 +13,8 @@
         v-loading="isloading"
       >
         <el-table-column prop="createTime" label="日期" width="180">
+        </el-table-column>
+        <el-table-column prop="userId" label="用户Id" width="180">
         </el-table-column>
         <el-table-column prop="bloodOxygen" label="血氧（%）" width="180">
         </el-table-column>
@@ -40,81 +42,70 @@
 
 <script>
 // 网络请求
-import { healthAnalysisList } from 'api/analysis'
+import { getHealthAnalysis, getUserInfo } from 'api/admin'
 
 export default {
-  name: 'HealthAnalysisList',
+  name: '',
   components: {},
   props: {},
   data() {
     return {
       tableData: [],
-      pageNum: 1, // 页码
-      pageSize: 5, // 页面展示多少
-      currentPage4: null, // 当前页数
-      pagination: {}, // 分页
+      pageNum: 1, //页码
+      pageSize: 5, // 每页展示多少
+      pagination: null,
+      currentPage4: null,
       disabled: false,
       isloading: false,
     }
   },
   computed: {},
   watch: {},
-  created() {
-    // 发送请求
-    this._healthAnalysisList()
+  async created() {
+    this._getHealthAnalysis()
   },
-  mounted() {
-    // 事件总线
-    this.$bus.$on('items', (data) => {
-      // 传过来的
-      this.tableData = data.items
-      this.pagination = data
-    })
-  },
+  mounted() {},
   methods: {
-    async _healthAnalysisList() {
-      const res = await healthAnalysisList({
+    async _getHealthAnalysis() {
+      const res = await getHealthAnalysis({
         pageNum: this.pageNum,
         pageSize: this.pageSize,
       })
-      this.tableData = res.data.data.items
-      const { data } = res.data
-      this.pagination = data
+      // 表格展示数据
+      this.tableData = res.data.data.records
+      // 做分页
+      this.pagination = res.data.data
     },
 
     async handleSizeChange(size) {
-      // 禁止点击
+      // console.log('handleSizeChange', size)
+      // 发送请求 更新页面
       this.disabled = true
       this.isloading = true
 
-      // 点击发送请求
       this.pageSize = size
-      const res2 = await healthAnalysisList({
+      const res2 = await getHealthAnalysis({
         pageNum: this.pageNum,
-        pageSize: this.pageSize,
+        pageSize: size,
       })
-      this.tableData = res2.data.data.items
+      this.tableData = res2.data.data.records
 
-      // 取消禁止点击
       this.disabled = false
       this.isloading = false
       this.currentPage4 = 1
     },
 
-    async handleCurrentChange(currentPage) {
-      // 禁止点击
+    async handleCurrentChange(index) {
+      // console.log('handleCurrentChange', index)
+      // 发送请求 更新页面
       this.disabled = true
       this.isloading = true
-      // 点击这个发送请求
-      // this.pageNum = currentPage
-      const res1 = await healthAnalysisList({
-        pageNum: currentPage,
+      const res1 = await getHealthAnalysis({
+        pageNum: index,
         pageSize: this.pageSize,
       })
+      this.tableData = res1.data.data.records
 
-      this.tableData = res1.data.data.items
-
-      // 取消禁止点击
       this.disabled = false
       this.isloading = false
     },
@@ -123,7 +114,7 @@ export default {
 </script>
 
 <style scoped lang="less">
-.lsit {
+.list {
   margin-top: 20px;
 }
 .table {
