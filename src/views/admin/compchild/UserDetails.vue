@@ -91,14 +91,14 @@ export default {
 
     async _getUserInfo() {
       const res = await getUserInfo(this.form)
-      console.log(res)
+      // console.log(res)
       if (res.data.data) {
         const arr = [] // 这里始终没有长度
         arr.push(res.data.data)
         // 这里是替换
         this.tableData = arr
         // 关闭loading
-        this.laading = false
+        this.isLoading = false
         return
       }
       this.$message({
@@ -106,7 +106,7 @@ export default {
         type: 'warning',
       })
       // 关闭loading
-      this.laading = false
+      this.isLoading = false
     },
 
     // 这个可以获取 table prop 里面的值
