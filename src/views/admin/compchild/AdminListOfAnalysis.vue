@@ -69,6 +69,12 @@ export default {
         pageNum: this.pageNum,
         pageSize: this.pageSize,
       })
+      // console.log(res)
+
+      if (res.data.msg === 'NEED_LOGIN') {
+        this.$router.push('/login')
+      }
+
       // 表格展示数据
       this.tableData = res.data.data.records
       // 做分页
