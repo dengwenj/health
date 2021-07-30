@@ -43,8 +43,8 @@ export default {
   data() {
     return {
       form: {
-        username: 'admin',
-        password: '12345678',
+        username: '',
+        password: '',
         type: [],
       },
       adminLonding: false, // 登录 loading
@@ -116,7 +116,10 @@ export default {
       this.$store.commit('setUser', res.data.data)
       // 是管理员 登录成功 跳转到首页
       this.$router.push('/admin')
-
+      this.$message({
+        message: '登录成功',
+        type: 'success',
+      })
       this.adminLonding = false
       this.text = '管理员登录'
     },

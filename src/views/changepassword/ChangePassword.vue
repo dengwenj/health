@@ -128,7 +128,7 @@ export default {
           type: 'success',
           message: '修改成功',
         })
-        this.$router.push('/')
+        this.$router.push('/login')
         this.text = '修改密码'
         this.ChangePasswordLonding = false
         return
@@ -153,7 +153,7 @@ export default {
   top: 0;
   left: 0;
   right: 0;
-  background: url('../../assets/jiankang.png') no-repeat;
+  background: url('../../assets/changepassword.jpg') no-repeat;
   background-size: cover;
   z-index: -1;
   .content {
