@@ -56,8 +56,8 @@ export default {
   data() {
     return {
       form: {
-        username: 'xiaodeng',
-        password: '12345678',
+        username: '',
+        password: '',
         type: [],
       },
       loginLonding: false, // 登录 loading
