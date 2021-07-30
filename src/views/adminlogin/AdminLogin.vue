@@ -113,7 +113,7 @@ export default {
         password: this.form.password,
       })
 
-      console.log(res)
+      // console.log(res)
 
       // 不是管理员 提示用户
       if (res.data.msg === '无管理员权限') {

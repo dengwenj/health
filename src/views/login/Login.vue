@@ -38,7 +38,7 @@
         </el-form-item>
       </el-form>
       <div class="admin" @click="handleAdmin">管理员登录</div>
-      <div class="zhuce" @click="handleRegister">用户注册</div>
+      <div class="zhuce" @click="handleRegister">没有账号？马上注册</div>
     </div>
   </div>
 </template>
@@ -194,7 +194,7 @@ export default {
 .zhuce {
   position: absolute;
   top: 91%;
-  left: 85%;
+  left: 72%;
   font-size: 12px;
   color: #57a3f5;
   cursor: pointer;
