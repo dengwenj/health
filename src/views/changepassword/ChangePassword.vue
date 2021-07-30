@@ -89,7 +89,7 @@ export default {
       this.text = '修改中'
 
       this.$refs['ChangePassword_form'].validate((v) => {
-        console.log(v)
+        // console.log(v)
         // v 为 false 表示不通过要求  为 true 表示通过 要求
         if (v) {
           // 判断密码是否一致 一致才发送请求 不一致提示用户
@@ -121,7 +121,7 @@ export default {
     // 修改密码
     async _changePassword() {
       const res = await changePassword(this.form)
-      console.log(res)
+      // console.log(res)
       // 修改成功过后
       if (res.data.msg === 'SUCCESS') {
         this.$message({

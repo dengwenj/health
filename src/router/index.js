@@ -48,7 +48,7 @@ const routes = [
     name: 'ChangePassword',
     component: ChangePassword,
     meta: {
-      Login: false,
+      Login: true,
     },
   },
   {
