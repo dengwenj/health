@@ -79,7 +79,7 @@ export default {
       this.isLoading = true
 
       this.$refs['user_form'].validate((valid) => {
-        console.log(valid)
+        // console.log(valid)
         if (valid) {
           // 发送请求
           this._getUserInfo()

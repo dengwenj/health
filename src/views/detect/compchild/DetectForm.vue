@@ -81,7 +81,7 @@ export default {
 
       this.$refs['analysis_form'].validate((valid) => {
         // 为 true 发送请求
-        console.log(valid)
+        // console.log(valid)
         if (valid) {
           this._healthAnalysis()
         }
