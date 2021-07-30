@@ -14,8 +14,6 @@
       >
         <el-table-column prop="createTime" label="日期" width="180">
         </el-table-column>
-        <el-table-column prop="userId" label="用户Id" width="180">
-        </el-table-column>
         <el-table-column prop="bloodOxygen" label="血氧（%）" width="180">
         </el-table-column>
         <el-table-column prop="heartRate" label="心率（/分钟）" width="180">
@@ -61,7 +59,7 @@ export default {
   },
   computed: {},
   watch: {},
-  async created() {
+  created() {
     this._getHealthAnalysis()
   },
   mounted() {},

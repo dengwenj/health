@@ -13,6 +13,8 @@ const Detect = () => import('views/detect/Detect')
 const Register = () => import('views/register/Register')
 // 管理员登录页面
 const AdminLogin = () => import('views/adminlogin/AdminLogin')
+// 修改密码
+const ChangePassword = () => import('views/changepassword/ChangePassword')
 
 Vue.use(VueRouter)
 
@@ -37,6 +39,14 @@ const routes = [
     path: '/adminlogin',
     name: 'adminlogin',
     component: AdminLogin,
+    meta: {
+      Login: false,
+    },
+  },
+  {
+    path: '/changepassword',
+    name: 'ChangePassword',
+    component: ChangePassword,
     meta: {
       Login: false,
     },

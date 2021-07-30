@@ -23,6 +23,9 @@
           </span>
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item command="settings">个人设置</el-dropdown-item>
+            <el-dropdown-item command="changePassword">
+              修改密码
+            </el-dropdown-item>
             <el-dropdown-item command="quitLogin">退出登录</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
@@ -55,12 +58,15 @@ export default {
   created() {},
   mounted() {},
   methods: {
-    // 点击退出登录或个人设置
+    // 点击退出登录或个人设置或修改密码
     handleCommand(command) {
       if (command === 'settings') {
         if (this.$route.path !== '/my') {
           this.$router.push('/my')
         }
+        return
+      } else if (command === 'changePassword') {
+        this.$router.push('/changepassword')
         return
       }
 

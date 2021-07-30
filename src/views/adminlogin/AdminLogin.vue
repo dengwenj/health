@@ -43,7 +43,7 @@ export default {
   data() {
     return {
       form: {
-        username: 'halo',
+        username: 'admin',
         password: '12345678',
         type: [],
       },
