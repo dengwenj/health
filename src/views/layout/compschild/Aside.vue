@@ -17,10 +17,6 @@
         <i class="el-icon-menu"></i>
         <span slot="title">健康分析</span>
       </el-menu-item>
-      <!-- <el-menu-item index="/publish">
-        <i class="el-icon-document"></i>
-        <span slot="title">内容管理</span>
-      </el-menu-item> -->
       <el-menu-item index="/admin">
         <i class="el-icon-s-custom"></i>
         <span slot="title">管理员</span>

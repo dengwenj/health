@@ -7,7 +7,6 @@ const Login = () => import('views/login/Login')
 const LayOut = () => import('views/layout/LayOut')
 const Home = () => import('views/home/Home')
 const My = () => import('views/my/My')
-const Publish = () => import('views/publish/Publish')
 const Admin = () => import('views/admin/Admin')
 const Detect = () => import('views/detect/Detect')
 // 注册页面
@@ -59,14 +58,6 @@ const routes = [
         path: '/detect',
         name: 'detect',
         component: Detect,
-        meta: {
-          Login: true,
-        },
-      },
-      {
-        path: '/publish',
-        name: 'publish',
-        component: Publish,
         meta: {
           Login: true,
         },
