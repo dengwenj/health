@@ -1,18 +1,4 @@
 <template>
-  <!--
-      el-form 表单组件
-      每个表单项都必须使用 el-form-item 组件包裹
-     -->
-  <!--
-       表单验证
-       1 必须给 el-from 组价绑定 model 为表单数据对象
-       2 给需要验证的表单项 el-from-item 绑定 prop属性
-         注意:prop 属性需要指定表单对象中的数据名称
-       3 通过 el-from 组件的 rules 属性配置验证规则
-       手动触发表单验证:
-       1 给 el-form 设置 ref 起个名字
-       2 通过 ref 获取 el-form 组件，调用组件的 validate 进行验证
-      -->
   <div class="login">
     <div class="content">
       <h1 class="health">Health</h1>
