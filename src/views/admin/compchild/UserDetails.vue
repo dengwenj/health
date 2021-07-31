@@ -99,15 +99,17 @@ export default {
     onSubmit() {
       // loading
       this.isLoading = true
-
+      this.text = '查询中'
       this.$refs['user_form'].validate((valid) => {
         // console.log(valid)
         if (valid) {
           // 发送请求
           this._getUserInfo()
+          return
         }
 
         this.isLoading = false
+        this.text = '立即查询'
       })
     },
 
@@ -126,6 +128,7 @@ export default {
 
         // 关闭loading
         this.isLoading = false
+        this.text = '立即查询'
         return
       }
       this.$message({
@@ -134,6 +137,7 @@ export default {
       })
       // 关闭loading
       this.isLoading = false
+      this.text = '立即查询'
     },
 
     handleInput(event) {

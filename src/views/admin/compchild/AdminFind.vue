@@ -75,7 +75,7 @@ export default {
       })
       // 分页
       this.pagination = res.data.data
-      console.log(res.data.data.records)
+      // console.log(res.data.data.records)
       this.tableData = res.data.data.records
     },
 
