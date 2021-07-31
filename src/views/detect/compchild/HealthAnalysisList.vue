@@ -77,6 +77,11 @@ export default {
         pageNum: this.pageNum,
         pageSize: this.pageSize,
       })
+
+      if (res.data.msg === 'NEED_LOGIN') {
+        this.$router.push('/login')
+      }
+
       this.tableData = res.data.data.items
       const { data } = res.data
       this.pagination = data
