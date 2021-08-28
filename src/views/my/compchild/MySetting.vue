@@ -25,6 +25,9 @@
       <el-form-item label="体重kg" prop="weight">
         <el-input v-model.number="settings.weight"></el-input>
       </el-form-item>
+      <el-form-item label="病例" prop="medicalHistory">
+        <el-input v-model="settings.medicalHistory"></el-input>
+      </el-form-item>
 
       <el-form-item>
         <el-button type="primary" @click="onSubmit" :loading="settingsLoading">
@@ -55,6 +58,7 @@ export default {
         gender: '',
         height: null,
         weight: null,
+        medicalHistory: '暂无',
       },
       rules: {
         nickname: [
@@ -78,6 +82,15 @@ export default {
         weight: [
           { required: true, message: '请填写体重' },
           { type: 'number', message: '年龄必须为数字值' },
+        ],
+        medicalHistory: [
+          { required: true, message: '病例没有输入暂无', trigger: 'blur' },
+          {
+            min: 2,
+            max: 20,
+            message: '长度在 2 到 20 个字符',
+            trigger: 'blur',
+          },
         ],
       },
       settingsLoading: false,
@@ -112,6 +125,7 @@ export default {
     // 获取个人信息  新人第一次没有数据 提交了才有
     async _getUserSettings() {
       const res = await getUserSettings()
+
       const { data } = res
       this.settings = data
     },
@@ -119,11 +133,13 @@ export default {
     // 点击提交或者更新
     async _updateUserSettings() {
       const res = await updateUserSettings(this.settings)
+      console.log(res)
 
       this.settingsLoading = false
 
       // 点击提交了 就有数据了 然后在获取数据 保存到 vuex 里面
       const res1 = await getUserSettings(this.settings)
+
       this.$store.commit('setUser', res1.data)
 
       this.$message({

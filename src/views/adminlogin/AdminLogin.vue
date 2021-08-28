@@ -98,6 +98,7 @@ export default {
         username: this.form.username,
         password: this.form.password,
       })
+      console.log(res)
 
       // console.log(res)
 
@@ -105,6 +106,16 @@ export default {
       if (res.data.msg === '无管理员权限') {
         this.$message({
           message: '非管理员账号',
+          type: 'warning',
+        })
+        this.adminLonding = false
+        this.text = '管理员登录'
+        return
+      }
+
+      if (!res.data.data) {
+        this.$message({
+          message: '用户名或密码错误',
           type: 'warning',
         })
         this.adminLonding = false
