@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <el-carousel trigger="click">
+    <el-carousel trigger="click" :interval="5000">
       <el-carousel-item v-for="(item, index) in 4" :key="item">
         <img src="./xintiao.jpg" v-if="index === 0" alt="" />
         <img src="./tiwen.jpg" v-if="index === 1" alt="" />
