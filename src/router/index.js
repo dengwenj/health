@@ -3,23 +3,31 @@ import VueRouter from 'vue-router'
 import { getItem } from 'utils/storage'
 
 // 路由懒加载
-const Login = () => import('views/login/Login')
-const LayOut = () => import('views/layout/LayOut')
-const Home = () => import('views/home/Home')
-const My = () => import('views/my/My')
-const Admin = () => import('views/admin/Admin')
-const Detect = () => import('views/detect/Detect')
-// 注册页面
-const Register = () => import('views/register/Register')
-// 管理员登录页面
-const AdminLogin = () => import('views/adminlogin/AdminLogin')
-// 修改密码
-const ChangePassword = () => import('views/changepassword/ChangePassword')
+const Login = () =>
+  import ('views/login/Login')
+const LayOut = () =>
+  import ('views/layout/LayOut')
+const Home = () =>
+  import ('views/home/Home')
+const My = () =>
+  import ('views/my/My')
+const Admin = () =>
+  import ('views/admin/Admin')
+const Detect = () =>
+  import ('views/detect/Detect')
+  // 注册页面
+const Register = () =>
+  import ('views/register/Register')
+  // 管理员登录页面
+const AdminLogin = () =>
+  import ('views/adminlogin/AdminLogin')
+  // 修改密码
+const ChangePassword = () =>
+  import ('views/changepassword/ChangePassword')
 
 Vue.use(VueRouter)
 
-const routes = [
-  {
+const routes = [{
     path: '/login',
     name: 'login',
     component: Login,
@@ -55,8 +63,7 @@ const routes = [
     path: '/',
     component: LayOut,
     // 子路由
-    children: [
-      {
+    children: [{
         path: '/',
         name: 'home',
         component: Home,
@@ -93,7 +100,7 @@ const routes = [
 ]
 
 const router = new VueRouter({
-  mode: 'history',
+  mode: 'hash',
   // base: process.env.BASE_URL,
   routes,
 })
